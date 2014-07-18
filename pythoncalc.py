@@ -1,10 +1,14 @@
-# author: ??
+#!/usr/bin/env python
+# author: 
+# coding = UTF-8
 # date: 2014.7.13
-#
+
 from __future__ import division
 from math import *
 from graphics import *
-
+import sys
+reload(sys);
+sys.setdefaultencoding('UTF-8')
 
 def fxMax(a,b,func):
     x = a
@@ -83,12 +87,12 @@ def drawlabel(win,center,face,size,style,label):
 def funcdraw(a,b,func):
     win=GraphWin('Draw Function',550,550)
     win.setBackground('white')
-    #????XY???
+    #?????
     xll,xur=getX(a,b,func)
     yll,yur=getY(a,b,func)
     d=min(b-a,yur-yll)
     win.setCoords(xll-1,yll-1,xur+1,yur+1)
-    #?????
+    #??XY0???
     Line(Point(xll,0.0),Point(xur,0.0)).draw(win)
     Line(Point(0.0,yll),Point(0.0,yur)).draw(win)
     Text(Point(-0.05*d,0.03*d),'O').draw(win)
@@ -131,14 +135,14 @@ def inte(a,b,func):
 
 #???
 def FuncGraph():
-    win = GraphWin("Calculator", 300, 490)
+    win = GraphWin(u"Python\u8BA1\u7B97\u5668", 300, 490)
     win.setCoords(0.0,0.0,10,14)
     bg = Rectangle(Point(0.2,12.3), Point(9.5,13.8))
     bg.setFill('white')
     bg.draw(win)
 
-    drawlabel(win, Point(1, 12), 'arial', 9, 'bold italic', 'Function:')
-    show = Text(Point(5, 12.1), "")
+    drawlabel(win, Point(1, 12), 'arial', 9, 'bold italic', u'\u529F\u80FD:')
+    show = Text(Point(5, 13.1), "")
     show.draw(win)
 
     drawlabel(win,Point(1.3,11.2),'arial',8,'bold italic','Low')
@@ -147,12 +151,12 @@ def FuncGraph():
     drawlabel(win,Point(3.8,11.2),'arial',8,'bold italic','Up')
     E2 = Entry(Point(4.8,11.2),3)
     E2.draw(win)
-    bDraw = button(win,Point(1.9,10.2),1.9,.9,"Draw")
-    bInt = button(win,Point(4.4,10.2),1.9,.9,"Integra")
+    bDraw = button(win,Point(1.9,10.2),1.9,.9,u"\u7ED8\u56FE")
+    bInt = button(win,Point(4.4,10.2),1.9,.9,u"\u79EF\u5206")
     drawlabel(win,Point(1.1,9),'arial',8,'bold italic','X =')
     E3 = Entry(Point(2.2,9),4)
     E3.draw(win)
-    bDiff = button(win,Point(4.4,9),1.9,.9,"Differ")
+    bDiff = button(win,Point(4.4,9),1.9,.9,u"\u6C42\u5BFC")
     drawlabel(win,Point(5,8.4),'arial',8,'bold italic','-------------------------------------------------------------------------')
 
     b1 = button(win,Point(1,2.1),1.2,1.2,"1")

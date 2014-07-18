@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # graphics.py
 """Simple object oriented graphics library  
 
