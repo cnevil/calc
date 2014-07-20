@@ -20,9 +20,17 @@ Update log:
     3.add some note annotation and revise some bariable name.
     4.add a bariable to control whether a mouse-click is a new calculate.
 
+2014.7.19：
+    1. expend the strdeal() and mouseclick function to suppose the sin/cos/tan
+
+2014.7.20:
+    1.expend the eval() function to suppose the sin/cos/tan (STILL NEED REVISE)
 
 something still need to inprove:
 	1.Can't calculate the ^,sin cos tan and other complex things.
 	2.The history function still need test.
     and others
+
+
+
                                                                 author：zhangyuan

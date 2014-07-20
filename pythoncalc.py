@@ -7,7 +7,6 @@ from __future__ import division
 from math import *
 from graphics import *
 import sys
-
 reload(sys);
 sys.setdefaultencoding('UTF-8')
 
@@ -32,7 +31,7 @@ def fxMin(a, b, func):
     return min(y)
 
 
-# ??XY??
+# 获取XY坐标
 def getX(a, b, func):
     if a < 0 and b < 0:
         xmin = 1.2 * a
@@ -89,18 +88,16 @@ def drawlabel(win, center, face, size, style, label):
     a.draw(win)
 
 
-    #????
-
-
+#绘图窗口
 def funcdraw(a, b, func):
     win = GraphWin('Draw Function', 550, 550)
     win.setBackground('white')
-    #??XY????
+    #获取XY方向上最大值
     xll, xur = getX(a, b, func)
     yll, yur = getY(a, b, func)
     d = min(b - a, yur - yll)
     win.setCoords(xll - 1, yll - 1, xur + 1, yur + 1)
-    #??XYo??
+    #绘制XYO坐标轴
     Line(Point(xll, 0.0), Point(xur, 0.0)).draw(win)
     Line(Point(0.0, yll), Point(0.0, yur)).draw(win)
     Text(Point(-0.05 * d, 0.03 * d), 'O').draw(win)
@@ -110,7 +107,7 @@ def funcdraw(a, b, func):
     Line(Point(xur, 0.0), Point(xur - 0.04 * d, -0.02 * d)).draw(win)
     Line(Point(0.0, yur), Point(-0.02 * d, yur - 0.03 * d)).draw(win)
     Line(Point(0.0, yur), Point(0.02 * d, yur - 0.03 * d)).draw(win)
-    #??????
+    #绘制函数曲线
     x = a
     step = 0.002 * (b - a)
     while x <= b:
@@ -147,11 +144,11 @@ def inte(a, b, func):
 def suffix(st):
     listopt = [" "]
     listnum = [" "]
-    dictopt = {"+": 1, "-": 1, "*": 2, "/": 2, " ": 0, "(": -1, ")": 9}  #???
+    dictopt = {"+": 1, "-": 1, "*": 2, "/": 2, " ": 0, "(": -1, ")": 9}  #设定优先级
     for i in range(0, len(st)):
-        if (differ(st[i]) == 1):  #?????????
+        if (differ(st[i]) == 1):  #判断，对运算符操作
             if (len(listopt)):
-                if (dictopt[st[i]] > dictopt[listopt[len(listopt) - 1]]):  #??????????
+                if (dictopt[st[i]] > dictopt[listopt[len(listopt) - 1]]):  #优先级比栈顶高，入栈
                     if st[i] == ")":
                         while (1):
                             tmp = listopt.pop()
@@ -163,24 +160,24 @@ def suffix(st):
                     else:
                         listopt.append(st[i])
 
-                else:  #??st[i]????????opt??????num??????st[i]?opt?
-                    if st[i] == "(":  #?????????????? ?????????"("????? "("? ????
+                else:  #如果st[i]优先级比栈顶低，opt栈中依次放到num中，然后再把st[i]入opt栈  
+                    if st[i] == "(":   #优先级低于栈顶元素的，可能是 加减乘除，也可能是"("。如果碰到 "("则 直接入栈  
                         listopt.append(st[i])
                     else:
-                        while (dictopt[st[i]] < dictopt[listopt[len(listopt) - 1]] and len(listopt) != 0):  #???? ????
+                        while (dictopt[st[i]] < dictopt[listopt[len(listopt) - 1]] and len(listopt) != 0):  #碰到的是 加减乘除
                             tmp = listopt.pop()
                             listnum.append(tmp)
-                            listnum.append(" ")  #???????????print cnt_string:? 1.2 5 6 ** 57 14 - + ?
+                            listnum.append(" ")  #运算符之间加空格，否则print cnt_string:“ 1.2 5 6 ** 57 14 - + ” 
                         listopt.append(st[i])
-        else:  #???????????num?
+        else:   #非运算符的操作，依次入num栈  
             listnum.append(st[i])
-    while (len(listopt)):  #opt? ???? num?
-        listnum.append(" ")  #???????????print cnt_string:? 1.2 5 6 * * 57 14-+ ?
+    while (len(listopt)):   #opt栈 依次放到 num栈  
+        listnum.append(" ")  #运算符前面加空格，否则print cnt_string:“ 1.2 5 6 * * 57 14-+ ” 
         listnum.append(listopt.pop())
     return listnum
 
 
-#????????????
+#判断是运算符还是操作数：  
 def differ(elem):
     if elem == "+" or elem == "-" or elem == "*" or elem == "/" or elem == "(" or elem == ")":
         return 1
@@ -188,13 +185,13 @@ def differ(elem):
         return 0
 
 
-#??????????????????
+#整理字符串，列表，去除不必要的空格：
 def order(st):
     suffix_list = []
     tmp_list = suffix(st)
     last_string = "".join(tmp_list)
     cnt_string = last_string.replace("  ", " ")
-    cnt_string = cnt_string[1:len(cnt_string) - 1]  #??????
+    cnt_string = cnt_string[1:len(cnt_string) - 1]   #空格去头去尾  
     cnt_list_tmp = cnt_string.split(" ")
     for i in cnt_list_tmp:
         if i != "":
@@ -202,7 +199,7 @@ def order(st):
     return suffix_list
 
 
-#????switch-case ???
+#实现类似switch-case 功能：
 def calc(type, x, y):
     calculation = {"+": lambda x, y: ( eval(x) + eval(y)),
                    "*": lambda x, y: ( eval(x) * eval(y)),
@@ -214,8 +211,7 @@ def calc(type, x, y):
 
 #usage :result1 = calc('+',3,6)
 
-
-#??
+#计算： 
 def count(suffix_list):
     tmp_list = []
     for i in suffix_list:
@@ -228,19 +224,27 @@ def count(suffix_list):
             tmp_list.append(tmp3)
     return tmp_list[0]
 
-#????????????
+#处理字符串以方便栈处理
 def strdeal(s):
     i=j=0
     List_d =[]
     while j< len(s):
-        if s[j]<'0' or s[j]>'9' :
-            if s[j]!='.':
+        if '0'<=s[j]<='9':
+            j+=1
+        elif 'A'<=s[j]<='z':
+            if '0'<=s[j-1]<='9':
                 List_d.append(s[i:j])
+            List_d.append(s[j:j+2])
+            j+=2
+            i=j
+        elif '('<=s[j]<='/':
+            if s[j]!='.':
+                if '0'<=s[j-1]<='9':
+                    List_d.append(s[i:j])
                 List_d.append(s[j:j+1])
                 i=j+1
-        j+=1
+            j+=1
     List_d.append(s[i:j])
-    print(List_d)
     s = ' '.join(List_d)
     return s
 
