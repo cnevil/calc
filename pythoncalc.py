@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: cp936 -*-
+# -*- coding: UTF-8 -*-
 # author: 
 # coding = UTF-8
 # date: 2014.7.13
@@ -32,7 +32,7 @@ def fxMin(a, b, func):
     return min(y)
 
 
-# »ñÈ¡XY×ø±ê
+# è·å–XYåæ ‡
 def getX(a, b, func):
     if a < 0 and b < 0:
         xmin = 1.2 * a
@@ -89,16 +89,16 @@ def drawlabel(win, center, face, size, style, label):
     a.draw(win)
 
 
-#»æÍ¼´°¿Ú
+#ç»˜å›¾çª—å£
 def funcdraw(a, b, func):
     win = GraphWin('Draw Function', 550, 550)
     win.setBackground('white')
-    #»ñÈ¡XY·½ÏòÉÏ×î´óÖµ
+    #è·å–XYæ–¹å‘ä¸Šæœ€å¤§å€¼
     xll, xur = getX(a, b, func)
     yll, yur = getY(a, b, func)
     d = min(b - a, yur - yll)
     win.setCoords(xll - 1, yll - 1, xur + 1, yur + 1)
-    #»æÖÆXYO×ø±êÖá
+    #ç»˜åˆ¶XYOåæ ‡è½´
     Line(Point(xll, 0.0), Point(xur, 0.0)).draw(win)
     Line(Point(0.0, yll), Point(0.0, yur)).draw(win)
     Text(Point(-0.05 * d, 0.03 * d), 'O').draw(win)
@@ -108,7 +108,7 @@ def funcdraw(a, b, func):
     Line(Point(xur, 0.0), Point(xur - 0.04 * d, -0.02 * d)).draw(win)
     Line(Point(0.0, yur), Point(-0.02 * d, yur - 0.03 * d)).draw(win)
     Line(Point(0.0, yur), Point(0.02 * d, yur - 0.03 * d)).draw(win)
-    #»æÖÆº¯ÊıÇúÏß
+    #ç»˜åˆ¶å‡½æ•°æ›²çº¿
     x = a
     step = 0.002 * (b - a)
     while x <= b:
@@ -145,11 +145,11 @@ def inte(a, b, func):
 def suffix(st):
     listopt = [" "]
     listnum = [" "]
-    dictopt = {"+": 1, "-": 1, "*": 2, "/": 2, " ": 0, "(": -1, ")": 9}  #Éè¶¨ÓÅÏÈ¼¶
+    dictopt = {"+": 1, "-": 1, "*": 2, "/": 2, " ": 0, "(": -1, ")": 9}  #è®¾å®šä¼˜å…ˆçº§
     for i in range(0, len(st)):
-        if (differ(st[i]) == 1):  #ÅĞ¶Ï£¬¶ÔÔËËã·û²Ù×÷
+        if (differ(st[i]) == 1):  #åˆ¤æ–­ï¼Œå¯¹è¿ç®—ç¬¦æ“ä½œ
             if (len(listopt)):
-                if (dictopt[st[i]] > dictopt[listopt[len(listopt) - 1]]):  #ÓÅÏÈ¼¶±ÈÕ»¶¥¸ß£¬ÈëÕ»
+                if (dictopt[st[i]] > dictopt[listopt[len(listopt) - 1]]):  #ä¼˜å…ˆçº§æ¯”æ ˆé¡¶é«˜ï¼Œå…¥æ ˆ
                     if st[i] == ")":
                         while (1):
                             tmp = listopt.pop()
@@ -161,24 +161,24 @@ def suffix(st):
                     else:
                         listopt.append(st[i])
 
-                else:  #Èç¹ûst[i]ÓÅÏÈ¼¶±ÈÕ»¶¥µÍ£¬optÕ»ÖĞÒÀ´Î·Åµ½numÖĞ£¬È»ºóÔÙ°Ñst[i]ÈëoptÕ»  
-                    if st[i] == "(":   #ÓÅÏÈ¼¶µÍÓÚÕ»¶¥ÔªËØµÄ£¬¿ÉÄÜÊÇ ¼Ó¼õ³Ë³ı£¬Ò²¿ÉÄÜÊÇ"("¡£Èç¹ûÅöµ½ "("Ôò Ö±½ÓÈëÕ»  
+                else:  #å¦‚æœst[i]ä¼˜å…ˆçº§æ¯”æ ˆé¡¶ä½ï¼Œoptæ ˆä¸­ä¾æ¬¡æ”¾åˆ°numä¸­ï¼Œç„¶åå†æŠŠst[i]å…¥optæ ˆ  
+                    if st[i] == "(":   #ä¼˜å…ˆçº§ä½äºæ ˆé¡¶å…ƒç´ çš„ï¼Œå¯èƒ½æ˜¯ åŠ å‡ä¹˜é™¤ï¼Œä¹Ÿå¯èƒ½æ˜¯"("ã€‚å¦‚æœç¢°åˆ° "("åˆ™ ç›´æ¥å…¥æ ˆ  
                         listopt.append(st[i])
                     else:
-                        while (dictopt[st[i]] < dictopt[listopt[len(listopt) - 1]] and len(listopt) != 0):  #Åöµ½µÄÊÇ ¼Ó¼õ³Ë³ı
+                        while (dictopt[st[i]] < dictopt[listopt[len(listopt) - 1]] and len(listopt) != 0):  #ç¢°åˆ°çš„æ˜¯ åŠ å‡ä¹˜é™¤
                             tmp = listopt.pop()
                             listnum.append(tmp)
-                            listnum.append(" ")  #ÔËËã·ûÖ®¼ä¼Ó¿Õ¸ñ£¬·ñÔòprint cnt_string:¡° 1.2 5 6 ** 57 14 - + ¡± 
+                            listnum.append(" ")  #è¿ç®—ç¬¦ä¹‹é—´åŠ ç©ºæ ¼ï¼Œå¦åˆ™print cnt_string:â€œ 1.2 5 6 ** 57 14 - + â€ 
                         listopt.append(st[i])
-        else:   #·ÇÔËËã·ûµÄ²Ù×÷£¬ÒÀ´ÎÈënumÕ»  
+        else:   #éè¿ç®—ç¬¦çš„æ“ä½œï¼Œä¾æ¬¡å…¥numæ ˆ  
             listnum.append(st[i])
-    while (len(listopt)):   #optÕ» ÒÀ´Î·Åµ½ numÕ»  
-        listnum.append(" ")  #ÔËËã·ûÇ°Ãæ¼Ó¿Õ¸ñ£¬·ñÔòprint cnt_string:¡° 1.2 5 6 * * 57 14-+ ¡± 
+    while (len(listopt)):   #optæ ˆ ä¾æ¬¡æ”¾åˆ° numæ ˆ  
+        listnum.append(" ")  #è¿ç®—ç¬¦å‰é¢åŠ ç©ºæ ¼ï¼Œå¦åˆ™print cnt_string:â€œ 1.2 5 6 * * 57 14-+ â€ 
         listnum.append(listopt.pop())
     return listnum
 
 
-#ÅĞ¶ÏÊÇÔËËã·û»¹ÊÇ²Ù×÷Êı£º  
+#åˆ¤æ–­æ˜¯è¿ç®—ç¬¦è¿˜æ˜¯æ“ä½œæ•°ï¼š  
 def differ(elem):
     if elem == "+" or elem == "-" or elem == "*" or elem == "/" or elem == "(" or elem == ")":
         return 1
@@ -186,13 +186,13 @@ def differ(elem):
         return 0
 
 
-#ÕûÀí×Ö·û´®£¬ÁĞ±í£¬È¥³ı²»±ØÒªµÄ¿Õ¸ñ£º
+#æ•´ç†å­—ç¬¦ä¸²ï¼Œåˆ—è¡¨ï¼Œå»é™¤ä¸å¿…è¦çš„ç©ºæ ¼ï¼š
 def order(st):
     suffix_list = []
     tmp_list = suffix(st)
     last_string = "".join(tmp_list)
     cnt_string = last_string.replace("  ", " ")
-    cnt_string = cnt_string[1:len(cnt_string) - 1]   #¿Õ¸ñÈ¥Í·È¥Î²  
+    cnt_string = cnt_string[1:len(cnt_string) - 1]   #ç©ºæ ¼å»å¤´å»å°¾  
     cnt_list_tmp = cnt_string.split(" ")
     for i in cnt_list_tmp:
         if i != "":
@@ -200,7 +200,7 @@ def order(st):
     return suffix_list
 
 
-#ÊµÏÖÀàËÆswitch-case ¹¦ÄÜ£º
+#å®ç°ç±»ä¼¼switch-case åŠŸèƒ½ï¼š
 def calc(type, x, y):
     calculation = {"+": lambda x, y: ( eval(x) + eval(y)),
                    "*": lambda x, y: ( eval(x) * eval(y)),
@@ -212,7 +212,7 @@ def calc(type, x, y):
 
 #usage :result1 = calc('+',3,6)
 
-#¼ÆËã£º 
+#è®¡ç®—ï¼š 
 def count(suffix_list):
     tmp_list = []
     for i in suffix_list:
@@ -225,7 +225,7 @@ def count(suffix_list):
             tmp_list.append(tmp3)
     return tmp_list[0]
 
-#´¦Àí×Ö·û´®ÒÔ·½±ãÕ»´¦Àí
+#å¤„ç†å­—ç¬¦ä¸²ä»¥æ–¹ä¾¿æ ˆå¤„ç†
 def strdeal(s):
     i=j=k=0
     List_d =[]
