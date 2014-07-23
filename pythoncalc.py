@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: cp936 -*-
 # author: 
 # coding = UTF-8
 # date: 2014.7.13
@@ -31,7 +32,7 @@ def fxMin(a, b, func):
     return min(y)
 
 
-# è·å–XYåæ ‡
+# »ñÈ¡XY×ø±ê
 def getX(a, b, func):
     if a < 0 and b < 0:
         xmin = 1.2 * a
@@ -88,16 +89,16 @@ def drawlabel(win, center, face, size, style, label):
     a.draw(win)
 
 
-#ç»˜å›¾çª—å£
+#»æÍ¼´°¿Ú
 def funcdraw(a, b, func):
     win = GraphWin('Draw Function', 550, 550)
     win.setBackground('white')
-    #è·å–XYæ–¹å‘ä¸Šæœ€å¤§å€¼
+    #»ñÈ¡XY·½ÏòÉÏ×î´óÖµ
     xll, xur = getX(a, b, func)
     yll, yur = getY(a, b, func)
     d = min(b - a, yur - yll)
     win.setCoords(xll - 1, yll - 1, xur + 1, yur + 1)
-    #ç»˜åˆ¶XYOåæ ‡è½´
+    #»æÖÆXYO×ø±êÖá
     Line(Point(xll, 0.0), Point(xur, 0.0)).draw(win)
     Line(Point(0.0, yll), Point(0.0, yur)).draw(win)
     Text(Point(-0.05 * d, 0.03 * d), 'O').draw(win)
@@ -107,7 +108,7 @@ def funcdraw(a, b, func):
     Line(Point(xur, 0.0), Point(xur - 0.04 * d, -0.02 * d)).draw(win)
     Line(Point(0.0, yur), Point(-0.02 * d, yur - 0.03 * d)).draw(win)
     Line(Point(0.0, yur), Point(0.02 * d, yur - 0.03 * d)).draw(win)
-    #ç»˜åˆ¶å‡½æ•°æ›²çº¿
+    #»æÖÆº¯ÊıÇúÏß
     x = a
     step = 0.002 * (b - a)
     while x <= b:
@@ -144,11 +145,11 @@ def inte(a, b, func):
 def suffix(st):
     listopt = [" "]
     listnum = [" "]
-    dictopt = {"+": 1, "-": 1, "*": 2, "/": 2, " ": 0, "(": -1, ")": 9}  #è®¾å®šä¼˜å…ˆçº§
+    dictopt = {"+": 1, "-": 1, "*": 2, "/": 2, " ": 0, "(": -1, ")": 9}  #Éè¶¨ÓÅÏÈ¼¶
     for i in range(0, len(st)):
-        if (differ(st[i]) == 1):  #åˆ¤æ–­ï¼Œå¯¹è¿ç®—ç¬¦æ“ä½œ
+        if (differ(st[i]) == 1):  #ÅĞ¶Ï£¬¶ÔÔËËã·û²Ù×÷
             if (len(listopt)):
-                if (dictopt[st[i]] > dictopt[listopt[len(listopt) - 1]]):  #ä¼˜å…ˆçº§æ¯”æ ˆé¡¶é«˜ï¼Œå…¥æ ˆ
+                if (dictopt[st[i]] > dictopt[listopt[len(listopt) - 1]]):  #ÓÅÏÈ¼¶±ÈÕ»¶¥¸ß£¬ÈëÕ»
                     if st[i] == ")":
                         while (1):
                             tmp = listopt.pop()
@@ -160,24 +161,24 @@ def suffix(st):
                     else:
                         listopt.append(st[i])
 
-                else:  #å¦‚æœst[i]ä¼˜å…ˆçº§æ¯”æ ˆé¡¶ä½ï¼Œoptæ ˆä¸­ä¾æ¬¡æ”¾åˆ°numä¸­ï¼Œç„¶åå†æŠŠst[i]å…¥optæ ˆ  
-                    if st[i] == "(":   #ä¼˜å…ˆçº§ä½äºæ ˆé¡¶å…ƒç´ çš„ï¼Œå¯èƒ½æ˜¯ åŠ å‡ä¹˜é™¤ï¼Œä¹Ÿå¯èƒ½æ˜¯"("ã€‚å¦‚æœç¢°åˆ° "("åˆ™ ç›´æ¥å…¥æ ˆ  
+                else:  #Èç¹ûst[i]ÓÅÏÈ¼¶±ÈÕ»¶¥µÍ£¬optÕ»ÖĞÒÀ´Î·Åµ½numÖĞ£¬È»ºóÔÙ°Ñst[i]ÈëoptÕ»  
+                    if st[i] == "(":   #ÓÅÏÈ¼¶µÍÓÚÕ»¶¥ÔªËØµÄ£¬¿ÉÄÜÊÇ ¼Ó¼õ³Ë³ı£¬Ò²¿ÉÄÜÊÇ"("¡£Èç¹ûÅöµ½ "("Ôò Ö±½ÓÈëÕ»  
                         listopt.append(st[i])
                     else:
-                        while (dictopt[st[i]] < dictopt[listopt[len(listopt) - 1]] and len(listopt) != 0):  #ç¢°åˆ°çš„æ˜¯ åŠ å‡ä¹˜é™¤
+                        while (dictopt[st[i]] < dictopt[listopt[len(listopt) - 1]] and len(listopt) != 0):  #Åöµ½µÄÊÇ ¼Ó¼õ³Ë³ı
                             tmp = listopt.pop()
                             listnum.append(tmp)
-                            listnum.append(" ")  #è¿ç®—ç¬¦ä¹‹é—´åŠ ç©ºæ ¼ï¼Œå¦åˆ™print cnt_string:â€œ 1.2 5 6 ** 57 14 - + â€ 
+                            listnum.append(" ")  #ÔËËã·ûÖ®¼ä¼Ó¿Õ¸ñ£¬·ñÔòprint cnt_string:¡° 1.2 5 6 ** 57 14 - + ¡± 
                         listopt.append(st[i])
-        else:   #éè¿ç®—ç¬¦çš„æ“ä½œï¼Œä¾æ¬¡å…¥numæ ˆ  
+        else:   #·ÇÔËËã·ûµÄ²Ù×÷£¬ÒÀ´ÎÈënumÕ»  
             listnum.append(st[i])
-    while (len(listopt)):   #optæ ˆ ä¾æ¬¡æ”¾åˆ° numæ ˆ  
-        listnum.append(" ")  #è¿ç®—ç¬¦å‰é¢åŠ ç©ºæ ¼ï¼Œå¦åˆ™print cnt_string:â€œ 1.2 5 6 * * 57 14-+ â€ 
+    while (len(listopt)):   #optÕ» ÒÀ´Î·Åµ½ numÕ»  
+        listnum.append(" ")  #ÔËËã·ûÇ°Ãæ¼Ó¿Õ¸ñ£¬·ñÔòprint cnt_string:¡° 1.2 5 6 * * 57 14-+ ¡± 
         listnum.append(listopt.pop())
     return listnum
 
 
-#åˆ¤æ–­æ˜¯è¿ç®—ç¬¦è¿˜æ˜¯æ“ä½œæ•°ï¼š  
+#ÅĞ¶ÏÊÇÔËËã·û»¹ÊÇ²Ù×÷Êı£º  
 def differ(elem):
     if elem == "+" or elem == "-" or elem == "*" or elem == "/" or elem == "(" or elem == ")":
         return 1
@@ -185,13 +186,13 @@ def differ(elem):
         return 0
 
 
-#æ•´ç†å­—ç¬¦ä¸²ï¼Œåˆ—è¡¨ï¼Œå»é™¤ä¸å¿…è¦çš„ç©ºæ ¼ï¼š
+#ÕûÀí×Ö·û´®£¬ÁĞ±í£¬È¥³ı²»±ØÒªµÄ¿Õ¸ñ£º
 def order(st):
     suffix_list = []
     tmp_list = suffix(st)
     last_string = "".join(tmp_list)
     cnt_string = last_string.replace("  ", " ")
-    cnt_string = cnt_string[1:len(cnt_string) - 1]   #ç©ºæ ¼å»å¤´å»å°¾  
+    cnt_string = cnt_string[1:len(cnt_string) - 1]   #¿Õ¸ñÈ¥Í·È¥Î²  
     cnt_list_tmp = cnt_string.split(" ")
     for i in cnt_list_tmp:
         if i != "":
@@ -199,7 +200,7 @@ def order(st):
     return suffix_list
 
 
-#å®ç°ç±»ä¼¼switch-case åŠŸèƒ½ï¼š
+#ÊµÏÖÀàËÆswitch-case ¹¦ÄÜ£º
 def calc(type, x, y):
     calculation = {"+": lambda x, y: ( eval(x) + eval(y)),
                    "*": lambda x, y: ( eval(x) * eval(y)),
@@ -211,7 +212,7 @@ def calc(type, x, y):
 
 #usage :result1 = calc('+',3,6)
 
-#è®¡ç®—ï¼š 
+#¼ÆËã£º 
 def count(suffix_list):
     tmp_list = []
     for i in suffix_list:
@@ -224,9 +225,9 @@ def count(suffix_list):
             tmp_list.append(tmp3)
     return tmp_list[0]
 
-#å¤„ç†å­—ç¬¦ä¸²ä»¥æ–¹ä¾¿æ ˆå¤„ç†
+#´¦Àí×Ö·û´®ÒÔ·½±ãÕ»´¦Àí
 def strdeal(s):
-    i=j=0
+    i=j=k=0
     List_d =[]
     while j< len(s):
         if '0'<=s[j]<='9':
@@ -234,8 +235,8 @@ def strdeal(s):
         elif 'A'<=s[j]<='z':
             if '0'<=s[j-1]<='9':
                 List_d.append(s[i:j])
-            List_d.append(s[j:j+2])
-            j+=2
+            List_d.append(s[j:j+3])
+            j+=3
             i=j
         elif '('<=s[j]<='/':
             if s[j]!='.':
@@ -245,6 +246,17 @@ def strdeal(s):
                 i=j+1
             j+=1
     List_d.append(s[i:j])
+    while k<len(List_d):
+        if List_d[k]=='sin':
+            List_d[k]=str(sin(eval(List_d[k+1])))
+            del List_d[k+1]
+        elif List_d[k]=='cos':
+            List_d[k]=str(cos(eval(List_d[k+1])))
+            del List_d[k+1]
+        elif List_d[k]=='tan':
+            List_d[k]=str(tan(eval(List_d[k+1])))
+            del List_d[k+1]
+        k+=1
     s = ' '.join(List_d)
     return s
 
@@ -259,30 +271,30 @@ def eval0(s):
 #???
 def FuncGraph():
     win = GraphWin(u"Python\u8BA1\u7B97\u5668", 300, 490)
-    win.setCoords(0.0, 0.0, 10, 14)
-    bg = Rectangle(Point(0.2, 12.3), Point(9.5, 13.8))
+    win.setCoords(0.0, 0.0, 10, 13.6)
+    bg = Rectangle(Point(0.4, 11.9), Point(9.5, 13.2))
     bg.setFill('white')
     bg.draw(win)
-
-    drawlabel(win, Point(1, 12), 'arial', 9, 'bold italic', u'\u529F\u80FD:')
-    show = Text(Point(5, 13.1), "")
+    show = Text(Point(5, 12.7), "")
     show.draw(win)
-
-    drawlabel(win, Point(1.3, 11.2), 'arial', 8, 'bold italic', 'Low')
-    E1 = Entry(Point(2.3, 11.2), 3)
+    
+    drawlabel(win, Point(1.3, 11.6), 'arial', 9, 'bold italic', u'\u62D3\u5C55\u529F\u80FD:')
+    drawlabel(win, Point(1.3, 10.8), 'arial', 8, 'bold italic', 'Low')
+    E1 = Entry(Point(2.3, 10.8), 3)
     E1.draw(win)
-    drawlabel(win, Point(3.8, 11.2), 'arial', 8, 'bold italic', 'Up')
-    E2 = Entry(Point(4.8, 11.2), 3)
+    drawlabel(win, Point(3.8, 10.8), 'arial', 8, 'bold italic', 'Up')
+    E2 = Entry(Point(4.8, 10.8), 3)
     E2.draw(win)
-    bDraw = button(win, Point(1.9, 10.2), 1.9, .9, u"\u7ED8\u56FE")
-    bInt = button(win, Point(4.4, 10.2), 1.9, .9, u"\u79EF\u5206")
-    drawlabel(win, Point(1.1, 9), 'arial', 8, 'bold italic', 'X =')
-    E3 = Entry(Point(2.2, 9), 4)
+    bDraw = button(win, Point(1.9, 9.8), 1.9, .9, u"\u7ED8\u56FE")
+    bInt = button(win, Point(4.4, 9.8), 1.9, .9, u"\u79EF\u5206")
+    drawlabel(win, Point(1.1, 8.6), 'arial', 8, 'bold italic', 'X =')
+    E3 = Entry(Point(2.2, 8.6), 4)
     E3.draw(win)
-    bDiff = button(win, Point(4.4, 9), 1.9, .9, u"\u6C42\u5BFC")
-    drawlabel(win, Point(5, 8.4), 'arial', 8, 'bold italic',
+    bDiff = button(win, Point(4.4, 8.6), 1.9, .9, u"\u6C42\u5BFC")
+    drawlabel(win, Point(5, 7.9), 'arial', 8, 'bold italic',
               '-------------------------------------------------------------------------')
-
+    drawlabel(win, Point(1.3, 7.4), 'arial', 9, 'bold italic', u'\u57FA\u672C\u529F\u80FD:')
+    
     b1 = button(win, Point(1, 2.1), 1.2, 1.2, "1")
     b2 = button(win, Point(2.5, 2.1), 1.2, 1.2, "2")
     b3 = button(win, Point(4, 2.1), 1.2, 1.2, "3")
@@ -310,16 +322,11 @@ def FuncGraph():
 
     bPower = button(win, Point(7.5, 6.5), 1.2, 0.9, "^")
     bSqrt = button(win, Point(9, 6.5), 1.2, .9, "sqrt")
-    bint2 = button(win, Point(7.5, 7.6), 1.2, 0.9, "Int")
-    bMod = button(win, Point(9, 7.6), 1.2, .9, "Mod")
-    bsin = button(win, Point(1.4, 7.6), 1.9, .9, "sin")  #sin
-    basin = button(win, Point(1.4, 6.5), 1.9, .9, "arcsin")  #arcsin
-    bcos = button(win, Point(3.4, 7.6), 1.9, .9, "cos")  #cos
-    bacos = button(win, Point(3.4, 6.5), 1.9, .9, "arccos")  #arccos
-    btan = button(win, Point(5.4, 7.6), 1.9, .9, "tan")  #tan
-    batan = button(win, Point(5.4, 6.5), 1.9, .9, "arctan")  #arctan
+    bsin = button(win, Point(1.4, 6.5), 1.9, .9, "sin")  #sin
+    bcos = button(win, Point(3.4, 6.5), 1.9, .9, "cos")  #cos
+    btan = button(win, Point(5.4, 6.5), 1.9, .9, "tan")  #tan
 
-    bEsc = button(win, Point(9.8, 13.7), .4, .4, "X")
+    bEsc = button(win, Point(9.8, 13.3), .4, .4, "X")
 
     IsNewOper=0
     p = win.getMouse()
@@ -332,7 +339,6 @@ def FuncGraph():
             if b0.clicked(p):
                 s = show.getText()
                 s = s + "0"
-
                 show.setText(s)
                 show.setSize(20)
 
@@ -465,53 +471,21 @@ def FuncGraph():
                 show.setText(s)
                 show.setSize(20)
 
-            elif bMod.clicked(p):
-                s = show.getText()
-                s = s + '%'
-                show.setText(s)
-                show.setSize(20)
-
-            elif bint2.clicked(p):
-                s = show.getText()
-                s = eval(s)
-                s = int(s)
-                show.setText(str(s))
-                show.setSize(20)
-
             elif bsin.clicked(p):
                 s = show.getText()
-                s = s + 'sin('
+                s = s + 'sin'
                 show.setText(s)
                 show.setSize(20)
-
-            elif basin.clicked(p):
-                s = show.getText()
-                s = s + 'asin('
-                show.setText(s)
-                show.setSize(20)
-
-            elif bacos.clicked(p):
-                s = show.getText()
-                s = s + 'acos('
-                show.setText(s)
-                show.setSize(20)
-
 
             elif bcos.clicked(p):
                 s = show.getText()
-                s = s + 'cos('
+                s = s + 'cos'
                 show.setText(s)
                 show.setSize(20)
 
             elif btan.clicked(p):
                 s = show.getText()
-                s = s + 'tan('
-                show.setText(s)
-                show.setSize(20)
-
-            elif batan.clicked(p):
-                s = show.getText()
-                s = s + 'atan('
+                s = s + 'tan'
                 show.setText(s)
                 show.setSize(20)
 
