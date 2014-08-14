@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-# author: 
-# coding = UTF-8
+# author: 张源
 # date: 2014.7.13
 
 from __future__ import division
 from math import *
 from graphics import *
-import sys
-reload(sys);
-sys.setdefaultencoding('UTF-8')
 
 
 def fxMax(a, b, func):
@@ -194,6 +190,7 @@ def order(st):
     cnt_string = last_string.replace("  ", " ")
     cnt_string = cnt_string[1:len(cnt_string) - 1]   #空格去头去尾  
     cnt_list_tmp = cnt_string.split(" ")
+    print (cnt_list_tmp)
     for i in cnt_list_tmp:
         if i != "":
             suffix_list.append(i)
@@ -232,7 +229,7 @@ def strdeal(s):
     while j< len(s):
         if '0'<=s[j]<='9':
             j+=1
-        elif 'A'<=s[j]<='z':
+        elif 'a'<=s[j]<='z':
             if '0'<=s[j-1]<='9':
                 List_d.append(s[i:j])
             List_d.append(s[j:j+3])
@@ -245,7 +242,15 @@ def strdeal(s):
                 List_d.append(s[j:j+1])
                 i=j+1
             j+=1
+        elif s[j]=='^':
+            if '0'<=s[j-1]<='9':
+                List_d.append(s[i:j])
+            List_d.append(s[j:j+1])
+            print (List_d)
+            j+=1
+            i=j
     List_d.append(s[i:j])
+    print (List_d)
     while k<len(List_d):
         if List_d[k]=='sin':
             List_d[k]=str(sin(eval(List_d[k+1])))
@@ -256,44 +261,55 @@ def strdeal(s):
         elif List_d[k]=='tan':
             List_d[k]=str(tan(eval(List_d[k+1])))
             del List_d[k+1]
+        elif List_d[k]=='^':
+            temp_a=eval(List_d[k-1])
+            temp_b=eval(List_d[k+1])
+            List_d[k-1]=str(temp_a**temp_b)
+            del List_d[k:k+2]
+            k-=1
         k+=1
     s = ' '.join(List_d)
+    print (List_d)
     return s
 
 #eval main
 def eval0(s):
     s=strdeal(s)
     suffix_list = order(s)
+    print (suffix_list)
     answer = count(suffix_list)
+    print (answer)
     return answer
 
 
-#???
+#主程序
 def FuncGraph():
-    win = GraphWin(u"Python\u8BA1\u7B97\u5668", 300, 490)
-    win.setCoords(0.0, 0.0, 10, 13.6)
-    bg = Rectangle(Point(0.4, 11.9), Point(9.5, 13.2))
+    win = GraphWin(u"Python\u8BA1\u7B97\u5668", 300, 400)
+    win.setCoords(0.0, 0.0, 10, 11.2)
+    bg = Rectangle(Point(0.4, 9.9), Point(9.5, 11))
     bg.setFill('white')
     bg.draw(win)
-    show = Text(Point(5, 12.7), "")
+    show = Text(Point(5, 10.5), "")
     show.draw(win)
     
-    drawlabel(win, Point(1.3, 11.6), 'arial', 9, 'bold italic', u'\u62D3\u5C55\u529F\u80FD:')
-    drawlabel(win, Point(1.3, 10.8), 'arial', 8, 'bold italic', 'Low')
-    E1 = Entry(Point(2.3, 10.8), 3)
+    drawlabel(win, Point(5, 9.7), 'arial', 8, 'bold italic',
+              '-------------------------------------------------------------------------')
+    drawlabel(win, Point(7.4, 9.2), 'arial', 11, 'bold italic', u'\u62D3\u5C55\u529F\u80FD')
+    drawlabel(win, Point(1 , 9.2), 'arial', 8, 'bold italic', 'Low')
+    E1 = Entry(Point(2., 9.2), 3)
     E1.draw(win)
-    drawlabel(win, Point(3.8, 10.8), 'arial', 8, 'bold italic', 'Up')
-    E2 = Entry(Point(4.8, 10.8), 3)
+    drawlabel(win, Point(3.5, 9.2), 'arial', 8, 'bold italic', 'Up')
+    E2 = Entry(Point(4.5, 9.2), 3)
     E2.draw(win)
-    bDraw = button(win, Point(1.9, 9.8), 1.9, .9, u"\u7ED8\u56FE")
-    bInt = button(win, Point(4.4, 9.8), 1.9, .9, u"\u79EF\u5206")
-    drawlabel(win, Point(1.1, 8.6), 'arial', 8, 'bold italic', 'X =')
-    E3 = Entry(Point(2.2, 8.6), 4)
+    bDraw = button(win, Point(1.6, 8.4), 1.6, .6, u"\u7ED8\u56FE")
+    bInt = button(win, Point(4.1, 8.4), 1.6, .6, u"\u79EF\u5206")
+    drawlabel(win, Point(5.7, 8.4), 'arial', 8, 'bold italic', 'X =')
+    E3 = Entry(Point(6.8, 8.4), 4)
     E3.draw(win)
-    bDiff = button(win, Point(4.4, 8.6), 1.9, .9, u"\u6C42\u5BFC")
+    bDiff = button(win, Point(8.6, 8.4), 1.6, .6, u"\u6C42\u5BFC")
     drawlabel(win, Point(5, 7.9), 'arial', 8, 'bold italic',
               '-------------------------------------------------------------------------')
-    drawlabel(win, Point(1.3, 7.4), 'arial', 9, 'bold italic', u'\u57FA\u672C\u529F\u80FD:')
+    drawlabel(win, Point(1.5, 7.4), 'arial', 10, 'bold italic', u'\u57FA\u672C\u529F\u80FD:')
     
     b1 = button(win, Point(1, 2.1), 1.2, 1.2, "1")
     b2 = button(win, Point(2.5, 2.1), 1.2, 1.2, "2")
@@ -326,7 +342,7 @@ def FuncGraph():
     bcos = button(win, Point(3.4, 6.5), 1.9, .9, "cos")  #cos
     btan = button(win, Point(5.4, 6.5), 1.9, .9, "tan")  #tan
 
-    bEsc = button(win, Point(9.8, 13.3), .4, .4, "X")
+    bEsc = button(win, Point(9.8, 10.9), .4, .4, "X")
 
     IsNewOper=0
     p = win.getMouse()
@@ -461,7 +477,7 @@ def FuncGraph():
 
             elif bPower.clicked(p):
                 s = show.getText()
-                s = s + '**'
+                s = s + '^'
                 show.setText(s)
                 show.setSize(20)
 

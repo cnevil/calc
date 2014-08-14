@@ -30,10 +30,13 @@ Update log:
     1.Adjust UI,wipe off some function : arcsin,arccos,arctan,mod,int.
     2.Expend the eval() function to suppose the sin/cos/tan
 
+2014.8.14
+	1.Adjust UI
+	2.Remove some function.
+	3.^ are supposed.
+
 Something Still Need To Inprove:
-	1.Can't calculate the ^
-	2.The history function still need test.
-    and others
+	testing...
 
 
 
